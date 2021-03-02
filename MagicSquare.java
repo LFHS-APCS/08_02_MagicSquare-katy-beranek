@@ -25,9 +25,54 @@ public class MagicSquare
      */
     public boolean isMagicSquare()
     {
-        return false;   // complete this method
+      boolean squareQues = false;
+        if (addRow() == addCol()){
+           squareQues = true;
+        }
+        return squareQues;   // complete this method
     }
 
+  public void addRow() {
+    double total = 0;
+    for (int i = 0; i < array.length;i++){
+      total = total + array[i];
+    }
+    return total;
+  }
+
+  public void addCol() {
+    double total = 0;
+    for (int r = 0; r < array.length; r++){
+      for (int col = 0; col < array[r].length; col++){
+        total = total + array[r][col];
+      }
+    }
+    return total;
+  }
+
+
+/*
+OTHER CODE 
+    public int rowTotal (int[][] array, int row) 
+    {
+      int total = 0;
+      for (int c = 0; c < array[row].length; c++){
+         total += array[row][c];
+      }
+      return total;
+    }
+
+    public int colTotal (int[][]array, int col){
+      int total = 0;
+      for (int r = 0; r < array.length; r++){
+        if (col < array[r].length){
+          total += array[r][col];
+        }
+      }
+      return total;
+    }
+   **/
+    
     /**
      * Returns a String which represents the array.
      */
