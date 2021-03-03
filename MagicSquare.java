@@ -25,53 +25,83 @@ public class MagicSquare
      */
     public boolean isMagicSquare()
     {
-      boolean squareQues = false;
-        if (addRow() == addCol()){
-           squareQues = true;
+      for (int i = 0; i < array.length; i++){
+        if (array.length != array[i].length)
+          return false;
         }
-        return squareQues;   // complete this method
+
+       int sum = addRow(0);
+
+       if (!checkRows(sum))
+          return false;
+       if (!checkCols(sum))
+          return false;
+       if (!checkDiagonals(sum))
+          return false;
+    
+       return true;
     }
 
-  public void addRow() {
-    double total = 0;
-    for (int i = 0; i < array.length;i++){
-      total = total + array[i];
+  private int addCol(int col) {
+    int sum = 0;
+    for (int row = 0; row < array.length;row++){
+      sum = sum + array[row][col];
     }
-    return total;
+    return sum;
   }
 
-  public void addCol() {
-    double total = 0;
-    for (int r = 0; r < array.length; r++){
-      for (int col = 0; col < array[r].length; col++){
-        total = total + array[r][col];
+  private int addRow(int row) {
+    int sum = 0;
+      for (int col = 0; col < array[row].length; col++){
+        sum = sum + array[row][col];
       }
-    }
-    return total;
+    return sum;
   }
 
-
-/*
-OTHER CODE 
-    public int rowTotal (int[][] array, int row) 
-    {
-      int total = 0;
-      for (int c = 0; c < array[row].length; c++){
-         total += array[row][c];
-      }
-      return total;
+  public boolean checkCols(int sum) {
+    for (int i  = 0; i < array[0].length; i++){
+      int c = addCol(i);
+       if (c != sum)
+        return false;
     }
+      return true;
+  }
 
-    public int colTotal (int[][]array, int col){
-      int total = 0;
-      for (int r = 0; r < array.length; r++){
-        if (col < array[r].length){
-          total += array[r][col];
-        }
-      }
-      return total;
+  public boolean checkRows(int sum) {
+    for (int i = 0; i < array.length; i++){
+      int r = addRow(i);
+       if (r != sum)
+         return false;
     }
-   **/
+      return true;
+  }
+
+  private int diaDown(){
+    int sum = 0;
+    for (int i = 0; i < array.length; i++){
+      sum += array[i][i];
+    }
+    return sum;
+  }
+
+  private int diaUp() {
+    int sum = 0;
+    for (int row = 0, col = array.length-1; row < array.length; row++, col--){
+      sum += array[row][col];
+    }
+    return sum;
+  }
+
+  public boolean checkDiagonals(int sum) {
+    int sum0 = diaDown();
+      if (sum != sum0)
+        return false;
+    int sum1 = diaUp();
+      if (sum != sum1)
+        return false;
+    return true;
+  }
+
     
     /**
      * Returns a String which represents the array.
